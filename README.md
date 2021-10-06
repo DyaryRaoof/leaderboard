@@ -1,65 +1,56 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Project Name
+# Leaderboad
 
-> One paragraph statement about the project.
+The leaderboard website displays scores submitted by different players. It also allows you to submit your score. All data is preserved thanks to the external Leaderboard API service.. It is created with HTML , CSS , JS and webpack, NPM. 
 
-![screenshot](./app_screenshot.png)
+![screenshot](./apps_screenshot.png)
 
-Additional description about the project and its features.
+look thorugh the website to see the work and contact me if needed.
 
 ## Built With
 
-- Major languages
-- Frameworks
-- Technologies used
-
-## Live Demo
-
-[Live Demo Link](https://livedemo.com)
-
+- HTML and CSS, Javacript , webpack, NPM 
+- VS Code, Chrome DevTools
 
 ## Getting Started
-
-**This is an example of how you may give instructions on setting up your project locally.**
-**Modify this file to match your project, remove sections that don't apply. For example: delete the testing section if the currect project doesn't require testing.**
-
 
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
+install VS Code,  Chrome , Node.js and Git Bash 
+
 ### Setup
+
+download the repositoyr using git clone.
 
 ### Install
 
-### Usage
-
-### Run tests
+cd into the repository folder on your local machine.
+use npm i to install dependency packages.
+use npm start to see the project in your browser.
 
 ### Deployment
 
+run npm start.
 
+### Live Demo
+[Live Demo Link](  https://dyaryraoof.github.io/leaderboard/dist)
 
 ## Authors
 
-👤 **Author1**
+👤 **Dyary Raoof Bayz**
 
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
-
-👤 **Author2**
-
-- GitHub: [@githubhandle](https://github.com/githubhandle)
-- Twitter: [@twitterhandle](https://twitter.com/twitterhandle)
-- LinkedIn: [LinkedIn](https://linkedin.com/in/linkedinhandle)
+- GitHub: [@DyaryRaoof](https://github.com/DyaryRaoof)
+- Twitter: [@DyaryRaoof](https://twitter.com/DyaryRaoof)
+- LinkedIn: [@DyaryRaoof](https://linkedin.com/in/DyaryRaoof)
 
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome!
 
-Feel free to check the [issues page](../../issues/).
+Feel free to check the [issues page](https://github.com/DyaryRaoof/leaderboard/issues).
 
 ## Show your support
 
