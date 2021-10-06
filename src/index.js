@@ -7,7 +7,7 @@ const { bootstrap } = window;
 const form = document.forms[0];
 const URL = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/';
 
-async function fetchData(endpoint, data, method) {
+const fetchData = async (endpoint, data, method) => {
   const result = await fetch(URL + endpoint, {
     method,
     body: JSON.stringify(data),
@@ -17,8 +17,9 @@ async function fetchData(endpoint, data, method) {
   });
 
   return result;
-}
-async function createGame() {
+};
+
+const createGame = async () => {
   const endpoint = 'games/';
   const data = { name: 'Awesome Game' };
   const result = await fetchData(endpoint, data, 'POST');
@@ -26,18 +27,18 @@ async function createGame() {
   const id = json.result;
   const actualId = id.split('Game with ID: ')[1].split(' added.')[0];
   return actualId;
-}
+};
 
-function saveGameIdLocally(id) {
+const saveGameIdLocally = (id) => {
   localStorage.setItem('gameId', JSON.stringify(id));
-}
+};
 
-function retreiveGameId() {
+const retreiveGameId = () => {
   const id = JSON.parse(localStorage.getItem('gameId'));
   return id;
-}
+};
 
-function createScoreElement(userName, score) {
+const createScoreElement = (userName, score) => {
   const scoresTableBody = document.querySelector('#scores-table-body');
 
   const tr = document.createElement('tr');
@@ -46,26 +47,26 @@ function createScoreElement(userName, score) {
   tr.appendChild(td);
 
   scoresTableBody.appendChild(tr);
-}
+};
 
-function renderScoreElements(leaderboards) {
+const renderScoreElements = (leaderboards) => {
   const scoresTableBody = document.querySelector('#scores-table-body');
   scoresTableBody.innerHTML = '';
   leaderboards.forEach((leaderboard) => {
     createScoreElement(leaderboard.user, leaderboard.score);
   });
-}
+};
 
-async function refreshLeaderboard() {
+const refreshLeaderboard = async () => {
   const gameId = retreiveGameId();
   const endpoint = `games/${gameId}/scores/`;
   const result = await fetch(URL + endpoint);
   const json = await result.json();
   const games = json.result;
   renderScoreElements(games);
-}
+};
 
-async function createGameAndSaveItsId() {
+const createGameAndSaveItsId = async () => {
   let id = retreiveGameId();
   if (!id) {
     id = await createGame();
@@ -73,22 +74,22 @@ async function createGameAndSaveItsId() {
   } else {
     refreshLeaderboard();
   }
-}
+};
 
 window.addEventListener('load', () => {
   createGameAndSaveItsId();
 });
 
-function showModal(title, description) {
+const showModal = (title, description) => {
   const modalTitle = document.querySelector('#modal-title');
   const modalDescription = document.querySelector('#modal-description');
   modalTitle.textContent = title;
   modalDescription.textContent = description;
   const modal = new bootstrap.Modal(document.querySelector('.modal'), {});
   modal.show();
-}
+};
 
-async function sendGameScore(user, score) {
+const sendGameScore = async (user, score) => {
   const id = retreiveGameId();
   const endpoint = `games/${id}/scores/`;
   const method = 'POST';
@@ -96,7 +97,7 @@ async function sendGameScore(user, score) {
   const result = await fetchData(endpoint, data, method);
   const json = await result.json();
   showModal('Success', json.result);
-}
+};
 
 form.addEventListener('submit', (e) => {
   e.preventDefault();
