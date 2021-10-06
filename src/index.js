@@ -68,18 +68,22 @@ async function sendGameScore(user, score) {
   showModal('Success', json.result);
 }
 
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const name = form.elements[0];
-  const score = form.elements[1];
+function createScoreElement(userName, score) {
   const scoresTableBody = document.querySelector('#scores-table-body');
 
   const tr = document.createElement('tr');
   const td = document.createElement('td');
-  td.innerHTML = `${name.value} : ${score.value}`;
+  td.innerHTML = `${userName} : ${score}`;
   tr.appendChild(td);
 
   scoresTableBody.appendChild(tr);
+}
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const name = form.elements[0];
+  const score = form.elements[1];
+  createScoreElement(name.value, score.value);
   sendGameScore(name.value, score.value);
   form.reset();
 });
@@ -90,7 +94,6 @@ async function refreshLeaderboard() {
   const result = await fetch(URL + endpoint);
   const json = await result.json();
   const games = json.result;
-  console.log(games);
 }
 
 refreshButton.addEventListener('click', () => {
