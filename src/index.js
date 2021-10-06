@@ -37,11 +37,41 @@ function retreiveGameId() {
   return id;
 }
 
+function createScoreElement(userName, score) {
+  const scoresTableBody = document.querySelector('#scores-table-body');
+
+  const tr = document.createElement('tr');
+  const td = document.createElement('td');
+  td.innerHTML = `${userName} : ${score}`;
+  tr.appendChild(td);
+
+  scoresTableBody.appendChild(tr);
+}
+
+function renderScoreElements(leaderboards) {
+  const scoresTableBody = document.querySelector('#scores-table-body');
+  scoresTableBody.innerHTML = '';
+  leaderboards.forEach((leaderboard) => {
+    createScoreElement(leaderboard.user, leaderboard.score);
+  });
+}
+
+async function refreshLeaderboard() {
+  const gameId = retreiveGameId();
+  const endpoint = `games/${gameId}/scores/`;
+  const result = await fetch(URL + endpoint);
+  const json = await result.json();
+  const games = json.result;
+  renderScoreElements(games);
+}
+
 async function createGameAndSaveItsId() {
   let id = retreiveGameId();
   if (!id) {
     id = await createGame();
     saveGameIdLocally(id);
+  } else {
+    refreshLeaderboard();
   }
 }
 
@@ -68,17 +98,6 @@ async function sendGameScore(user, score) {
   showModal('Success', json.result);
 }
 
-function createScoreElement(userName, score) {
-  const scoresTableBody = document.querySelector('#scores-table-body');
-
-  const tr = document.createElement('tr');
-  const td = document.createElement('td');
-  td.innerHTML = `${userName} : ${score}`;
-  tr.appendChild(td);
-
-  scoresTableBody.appendChild(tr);
-}
-
 form.addEventListener('submit', (e) => {
   e.preventDefault();
   const name = form.elements[0];
@@ -87,23 +106,6 @@ form.addEventListener('submit', (e) => {
   sendGameScore(name.value, score.value);
   form.reset();
 });
-
-function renderScoreElements(leaderboards) {
-  const scoresTableBody = document.querySelector('#scores-table-body');
-  scoresTableBody.innerHTML = '';
-  leaderboards.forEach((leaderboard) => {
-    createScoreElement(leaderboard.user, leaderboard.score);
-  });
-}
-
-async function refreshLeaderboard() {
-  const gameId = retreiveGameId();
-  const endpoint = `games/${gameId}/scores/`;
-  const result = await fetch(URL + endpoint);
-  const json = await result.json();
-  const games = json.result;
-  renderScoreElements(games);
-}
 
 refreshButton.addEventListener('click', () => {
   refreshLeaderboard();
