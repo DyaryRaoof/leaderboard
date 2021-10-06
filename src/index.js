@@ -88,12 +88,21 @@ form.addEventListener('submit', (e) => {
   form.reset();
 });
 
+function renderScoreElements(leaderboards) {
+  const scoresTableBody = document.querySelector('#scores-table-body');
+  scoresTableBody.innerHTML = '';
+  leaderboards.forEach((leaderboard) => {
+    createScoreElement(leaderboard.user, leaderboard.score);
+  });
+}
+
 async function refreshLeaderboard() {
   const gameId = retreiveGameId();
   const endpoint = `games/${gameId}/scores/`;
   const result = await fetch(URL + endpoint);
   const json = await result.json();
   const games = json.result;
+  renderScoreElements(games);
 }
 
 refreshButton.addEventListener('click', () => {
