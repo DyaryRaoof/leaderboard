@@ -1,8 +1,8 @@
 import './style.css';
+import { animateSoccerBall } from './soccer.js';
+import { showToast } from './toast.js';
 
 const refreshButton = document.querySelector('#refresh');
-
-const { bootstrap } = window;
 
 const form = document.forms[0];
 const URL = 'https://us-central1-js-capstone-backend.cloudfunctions.net/api/';
@@ -46,6 +46,8 @@ const createScoreElement = (userName, score) => {
   td.innerHTML = `${userName} : ${score}`;
   tr.appendChild(td);
 
+  tr.style.color = 'white';
+
   scoresTableBody.appendChild(tr);
 };
 
@@ -78,16 +80,15 @@ const createGameAndSaveItsId = async () => {
 
 window.addEventListener('load', () => {
   createGameAndSaveItsId();
+  let count = 0;
+  const interval = setInterval(() => {
+    animateSoccerBall();
+    count += 1;
+    if (count === 4) {
+      clearInterval(interval);
+    }
+  }, Math.random() * 500);
 });
-
-const showModal = (title, description) => {
-  const modalTitle = document.querySelector('#modal-title');
-  const modalDescription = document.querySelector('#modal-description');
-  modalTitle.textContent = title;
-  modalDescription.textContent = description;
-  const modal = new bootstrap.Modal(document.querySelector('.modal'), {});
-  modal.show();
-};
 
 const sendGameScore = async (user, score) => {
   const id = retreiveGameId();
@@ -96,7 +97,7 @@ const sendGameScore = async (user, score) => {
   const data = { user, score };
   const result = await fetchData(endpoint, data, method);
   const json = await result.json();
-  showModal('Success', json.result);
+  showToast(json.result, 'Success');
 };
 
 form.addEventListener('submit', (e) => {

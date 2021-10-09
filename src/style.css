@@ -1,7 +1,69 @@
+body {
+  color: white;
+  background: linear-gradient(100deg, green, white);
+}
+
+#bg-image {
+  z-index: -1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  filter: blur(3px);
+  max-width: 100%;
+  height: 100%;
+}
+
 h1 {
   margin: 2% 2%;
 }
 
 #section-content {
-  margin: 5% 10%;
+  margin: 0 10%;
+}
+
+#soccer-ball {
+  width: 50px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  display: none;
+}
+
+.soccer-ball {
+  animation: fall 1s linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#table-wrapper {
+  max-height: 350px;
+  overflow-y: scroll;
+}
+
+.toast-move {
+  display: inline;
+  opacity: 1;
+  z-index: 2;
+  position: absolute;
+  top: 20px;
+  left: -100px;
+  animation: move 1s forwards;
+}
+
+@keyframes move {
+  from {
+    left: -250px;
+  }
+
+  to {
+    left: 100px;
+  }
 }
